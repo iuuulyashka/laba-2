@@ -3,7 +3,7 @@ version: '3.8'
 services:
   nginx:
     image: nginx:alpine
-    container_name: food_delivery_nginx
+    container_name: conference_nginx
     ports:
       - "8080:80"
     volumes:
@@ -16,7 +16,7 @@ services:
 
   php:
     image: php:8.2-fpm
-    container_name: food_delivery_php
+    container_name: conference_php
     volumes:
       - ./www:/var/www/html
     networks:
