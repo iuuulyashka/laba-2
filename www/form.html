@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказ доставки еды</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+        
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+        }
+        
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+        }
+        
+        .radio-group, .checkbox-group {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #e1e5e9;
+        }
+        
+        .radio-option, .checkbox-option {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .radio-option:last-child, .checkbox-option:last-child {
+            margin-bottom: 0;
+        }
+        
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        
+        .radio-option label,
+        .checkbox-option label {
+            margin-bottom: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #48cae4 0%, #0077b6 100%);
+            border-radius: 10px;
+            color: white;
+            display: none;
+        }
+        
+        #result h3 {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .result-item {
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .result-label {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .result-value {
+            font-size: 14px;
+            text-align: right;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        .delivery-time {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍕 Заказ доставки еды</h1>
+        
+        <form id="deliveryForm">
+            <!-- Имя -->
+            <div class="form-group">
+                <label for="name">Ваше имя <span class="required">*</span></label>
+                <input type="text" id="name" name="name" placeholder="Введите ваше имя" required>
+            </div>
+
+            <!-- Количество блюд -->
+            <div class="form-group">
+                <label for="dishCount">Количество блюд <span class="required">*</span></label>
+                <input type="number" id="dishCount" name="dishCount" 
+                       min="1" max="10" 
+                       placeholder="От 1 до 10" required>
+                <div class="delivery-time">* Время доставки: 30-45 минут</div>
+            </div>
+
+            <!-- Ресторан -->
+            <div class="form-group">
+                <label for="restaurant">Ресторан <span class="required">*</span></label>
+                <select id="restaurant" name="restaurant" required>
+                    <option value="">-- Выберите ресторан --</option>
+                    <option value="pizza">🍕 Пицца "Итальянская"</option>
+                    <option value="sushi">🍣 Суши-бар "Сакура"</option>
+                    <option value="burger">🍔 Бургер-хаус "Американский"</option>
+                    <option value="asia">🥡 Азиатская кухня "Восток"</option>
+                    <option value="healthy">🥗 Здоровая еда "Фитнес"</option>
+                </select>
+            </div>
+
+            <!-- Чекбокс: Оплата онлайн -->
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="onlinePayment" name="onlinePayment" value="yes">
+                        <label for="onlinePayment">💳 Оплата онлайн (скидка 5%)</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Радио-кнопки: Тип упаковки -->
+            <div class="form-group">
+                <label>Тип упаковки <span class="required">*</span></label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="standard" name="packaging" value="standard" required>
+                        <label for="standard">📦 Стандартная упаковка</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="eco" name="packaging" value="eco">
+                        <label for="eco">🌿 Эко-упаковка (+50₽)</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="premium" name="packaging" value="premium">
+                        <label for="premium">🎁 Премиум упаковка (+100₽)</label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit">Заказать доставку</button>
+        </form>
+
+        <div id="result">
+            <h3>✅ Заказ оформлен!</h3>
+            <div id="resultContent"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
